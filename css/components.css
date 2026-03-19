@@ -1,0 +1,234 @@
+:root {
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  --shadow-soft: 0 14px 36px rgba(15, 17, 26, 0.08);
+  --shadow-focus: 0 0 0 3px rgba(255, 106, 0, 0.16), 0 18px 38px rgba(255, 106, 0, 0.2);
+
+  --ui-bg-neutral: #f9f7f4;
+  --ui-stage-bg: linear-gradient(170deg, rgba(255, 255, 255, 0.95), rgba(255, 248, 240, 0.9));
+  --ui-highlight: rgba(255, 106, 0, 0.14);
+}
+
+.imagine-task-head {
+  width: min(980px, 100%);
+  margin: 0 auto var(--space-2);
+  text-align: center;
+}
+
+.imagine-task-label {
+  margin: 0 0 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.assessment-stage {
+  width: min(980px, 100%);
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  background: var(--ui-stage-bg);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(10, 10, 10, 0.06);
+  padding: clamp(var(--space-2), 2.3vw, var(--space-4));
+  display: grid;
+  gap: var(--space-2);
+  position: relative;
+  isolation: isolate;
+}
+
+.assessment-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 80% 0%, var(--ui-highlight), transparent 48%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.assessment-stage .card {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  border-radius: var(--radius-md);
+  padding: 0;
+}
+
+.assessment-stage .flow-actions {
+  margin-top: var(--space-2);
+}
+
+.assessment-stage .task-subtitle,
+.assessment-stage .imagegen-subprogress {
+  color: #4f5665;
+}
+
+.task-title {
+  letter-spacing: -0.03em;
+}
+
+.task-instruction {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: #303643;
+}
+
+.task-helper {
+  font-size: 0.84rem;
+  color: #606775;
+}
+
+.stage-timer,
+.imagegen-timer,
+.improvise-timer,
+.navigate-timer,
+.exploration-timer {
+  background: rgba(16, 19, 27, 0.84);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  padding: 5px 10px;
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+  box-shadow: 0 10px 24px rgba(5, 7, 13, 0.24);
+}
+
+.control-wrap,
+.audio-dial,
+.smell-wrap,
+.tactile-wrap,
+.emotion-wrap,
+.goal-wrap,
+.navigate-wrap,
+.navigate-score-card,
+.rotation-target,
+.auditory-image-wrap {
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 0 1px rgba(10, 10, 10, 0.06);
+  padding: clamp(10px, 1.2vw, 16px);
+}
+
+.range:focus-visible,
+button:focus-visible {
+  box-shadow: var(--shadow-focus);
+}
+
+.idea-chip {
+  border-radius: 999px;
+  background: rgba(255, 106, 0, 0.1);
+  color: #3f2a1b;
+  border: 1px solid rgba(255, 106, 0, 0.2);
+}
+
+.task-view {
+  animation: stageIn 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes stageIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.996);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@media (max-width: 760px) {
+  .assessment-stage {
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+  }
+}
+
+/* ── Dark context overrides (assess page) ────────────────── */
+body.assess-page .assessment-stage {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow: none;
+}
+
+body.assess-page .assessment-stage::before {
+  background: radial-gradient(circle at 80% 0%, rgba(120, 60, 220, 0.07), transparent 48%);
+}
+
+body.assess-page .assessment-stage .task-subtitle,
+body.assess-page .assessment-stage .imagegen-subprogress {
+  color: rgba(175, 185, 220, 0.55);
+}
+
+body.assess-page .idea-chip {
+  background: rgba(255, 106, 0, 0.1);
+  border-color: rgba(255, 106, 0, 0.22);
+  color: rgba(255, 200, 150, 0.88);
+}
+
+/* Visual refresh alignment */
+:root {
+  --shadow-soft: 0 22px 50px rgba(15, 17, 26, 0.12);
+  --shadow-focus: 0 0 0 3px rgba(255, 106, 0, 0.18), 0 22px 46px rgba(255, 106, 0, 0.2);
+  --ui-stage-bg: linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(255, 244, 232, 0.92));
+  --ui-highlight: rgba(255, 106, 0, 0.18);
+}
+
+.assessment-stage {
+  border-radius: 28px;
+  box-shadow: var(--shadow-soft);
+}
+
+.assessment-stage::before {
+  background:
+    radial-gradient(circle at 80% 0%, var(--ui-highlight), transparent 48%),
+    radial-gradient(circle at 10% 100%, rgba(255, 51, 102, 0.08), transparent 36%);
+}
+
+.imagine-task-label {
+  letter-spacing: 0.22em;
+}
+
+body.assess-page .assessment-stage {
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03)),
+    rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 18px 42px rgba(0, 0, 0, 0.12);
+}
+
+/* Final assess readability lock */
+body.assess-page .assessment-stage {
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.88), rgba(255, 247, 240, 0.96)),
+    rgba(255, 255, 255, 0.9);
+  border-color: rgba(76, 55, 38, 0.08);
+  box-shadow: 0 18px 42px rgba(76, 48, 24, 0.08);
+}
+
+body.assess-page .assessment-stage::before {
+  background:
+    radial-gradient(circle at 80% 0%, rgba(234, 91, 12, 0.14), transparent 48%),
+    radial-gradient(circle at 10% 100%, rgba(255, 111, 97, 0.06), transparent 36%);
+}
+
+body.assess-page .assessment-stage .task-subtitle,
+body.assess-page .assessment-stage .imagegen-subprogress,
+body.assess-page .task-helper,
+body.assess-page .task-instruction,
+body.assess-page label {
+  color: #5e534d;
+}

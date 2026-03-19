@@ -1,0 +1,38 @@
+{
+  "fluency": [
+    { "min": 0, "max": 0, "score": 0, "label": "No valid responses" },
+    { "min": 1, "max": 5, "score": 2, "label": "Very low idea generation" },
+    { "min": 6, "max": 10, "score": 5, "label": "Moderate idea generation" },
+    { "min": 11, "max": 20, "score": 8, "label": "High idea generation" },
+    { "min": 21, "max": 999, "score": 10, "label": "Exceptional idea generation" }
+  ],
+  "flexibility": [
+    { "min": 1, "max": 1, "score": 2, "label": "One category" },
+    { "min": 2, "max": 3, "score": 4, "label": "Limited variety" },
+    { "min": 4, "max": 6, "score": 6, "label": "Moderate flexibility" },
+    { "min": 7, "max": 10, "score": 8, "label": "High flexibility" },
+    { "min": 11, "max": 999, "score": 10, "label": "Exceptional flexibility" }
+  ],
+  "originality": {
+    "wordCountThresholds": [
+      { "min": 0, "max": 2, "score": 2 },
+      { "min": 3, "max": 5, "score": 4 },
+      { "min": 6, "max": 9, "score": 6 },
+      { "min": 10, "max": 14, "score": 8 },
+      { "min": 15, "max": 999, "score": 10 }
+    ],
+    "commonPhrases": [
+      "drink coffee",
+      "drink tea",
+      "hold pens",
+      "coin holder",
+      "plant pot",
+      "store sugar"
+    ]
+  },
+  "weights": {
+    "fluency": 0.45,
+    "flexibility": 0.35,
+    "originality": 0.2
+  }
+}

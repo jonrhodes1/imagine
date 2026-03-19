@@ -1,0 +1,1515 @@
+/* ════════════════════════════════════════════════════════
+   IMAGINE  -  The Science page
+   Light page shell · dark expandable panels inside
+   ════════════════════════════════════════════════════════ */
+
+/* ── Page shell ──────────────────────────────────────────── */
+.science-page {
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 163, 99, 0.1), transparent 32%),
+    radial-gradient(circle at 82% 8%, rgba(255, 106, 0, 0.06), transparent 28%),
+    #f9f6f2;
+}
+
+.sci-main {
+  flex: 1;
+  width: min(840px, calc(100% - 2rem));
+  margin: 1.25rem auto 10rem;
+  display: grid;
+  gap: 1.75rem;
+}
+
+/* ── Page header ─────────────────────────────────────────── */
+.sci-header {
+  text-align: center;
+  padding: 0.5rem 0 0.25rem;
+}
+
+.sci-eyebrow {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.55rem;
+}
+
+.sci-title {
+  font-size: clamp(2.2rem, 7vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  color: var(--accent);
+  margin-bottom: 0.9rem;
+}
+
+.sci-intro {
+  max-width: 54ch;
+  margin: 0 auto;
+  color: var(--muted);
+  line-height: 1.62;
+  font-size: 1rem;
+}
+
+/* ── Section grid ────────────────────────────────────────── */
+.sci-grid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+/* ── Section card ────────────────────────────────────────── */
+.sci-card {
+  background: #fff;
+  border: 1px solid rgba(10, 10, 10, 0.09);
+  border-radius: 22px;
+  box-shadow: 0 3px 14px rgba(10, 10, 10, 0.06), 0 1px 3px rgba(10, 10, 10, 0.04);
+  overflow: hidden;
+}
+
+/* ── Card header ─────────────────────────────────────────── */
+.sci-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.1rem 1.4rem;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.07);
+  background: linear-gradient(100deg, rgba(255, 106, 0, 0.05) 0%, transparent 55%);
+}
+
+.sci-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: 0;
+  box-shadow: 0 4px 14px rgba(255, 106, 0, 0.3);
+}
+
+.sci-card-label {
+  display: grid;
+  gap: 0.08rem;
+  min-width: 0;
+}
+
+.sci-card-name {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #0a0a0a;
+  letter-spacing: -0.01em;
+}
+
+.sci-card-sub {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* ── Science section (always visible) ───────────────────── */
+.sci-science {
+  padding: 1.05rem 1.4rem 1.15rem;
+  background: #fffdf9;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.06);
+}
+
+.sci-science-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.sci-science p:last-child {
+  color: #1a1e2a;
+  line-height: 1.62;
+  font-size: 0.94rem;
+  margin: 0;
+}
+
+/* ── Toggle groups ───────────────────────────────────────── */
+.sci-toggle-group + .sci-toggle-group {
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* ── Toggle button ───────────────────────────────────────── */
+.sci-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.8rem 1.4rem;
+  background: #0c0e1a;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 200ms ease;
+}
+
+.sci-toggle:hover {
+  background: #111528;
+}
+
+.sci-toggle:focus-visible {
+  outline: 2px solid rgba(170, 125, 255, 0.6);
+  outline-offset: -2px;
+}
+
+.sci-toggle[aria-expanded="true"] {
+  background: #0f1330;
+}
+
+/* Application: purple label */
+.sci-toggle[data-type="application"] .sci-toggle-label {
+  color: rgba(175, 128, 255, 0.78);
+}
+
+.sci-toggle[data-type="application"][aria-expanded="true"] .sci-toggle-label {
+  color: rgba(210, 180, 255, 0.96);
+}
+
+/* Classroom: orange label */
+.sci-toggle[data-type="classroom"] .sci-toggle-label {
+  color: rgba(255, 154, 60, 0.8);
+}
+
+.sci-toggle[data-type="classroom"][aria-expanded="true"] .sci-toggle-label {
+  color: rgba(255, 190, 110, 0.96);
+}
+
+.sci-toggle-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: color 200ms ease;
+}
+
+/* ── Chevron icon ────────────────────────────────────────── */
+.sci-toggle-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  flex-shrink: 0;
+  transition: border-color 200ms ease, background 200ms ease, transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sci-toggle-icon::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid rgba(200, 212, 250, 0.55);
+  border-bottom: 2px solid rgba(200, 212, 250, 0.55);
+  transition: border-color 200ms ease, transform 300ms cubic-bezier(0.22, 1, 0.36, 1), top 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sci-toggle[aria-expanded="true"] .sci-toggle-icon {
+  border-color: rgba(170, 125, 255, 0.25);
+  background: rgba(170, 125, 255, 0.08);
+}
+
+.sci-toggle[aria-expanded="true"] .sci-toggle-icon::after {
+  top: 8px;
+  transform: translateX(-50%) rotate(-135deg);
+}
+
+/* ── Expandable panel ────────────────────────────────────── */
+.sci-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sci-panel[aria-hidden="false"] {
+  grid-template-rows: 1fr;
+}
+
+.sci-panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ── Panel content  -  dark glass style ───────────────────── */
+.sci-panel-body {
+  padding: 1.1rem 1.4rem 1.35rem;
+  background: linear-gradient(180deg, #0f1127 0%, #090a14 100%);
+  color: rgba(210, 218, 248, 0.88);
+  font-size: 0.94rem;
+  line-height: 1.65;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.sci-panel-body p {
+  margin: 0;
+}
+
+.sci-panel[aria-hidden="false"] .sci-panel-body {
+  opacity: 1;
+  transition: opacity 280ms ease 160ms;
+}
+
+/* ── Classroom prompt list ───────────────────────────────── */
+.sci-prompts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.sci-prompts li {
+  padding: 0.6rem 0.9rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  color: rgba(240, 244, 255, 0.94);
+  font-style: italic;
+  font-size: 0.92rem;
+  line-height: 1.52;
+}
+
+/* ── References ──────────────────────────────────────────── */
+.sci-references {
+  background: #fff;
+  border: 1px solid rgba(10, 10, 10, 0.09);
+  border-radius: 22px;
+  padding: 1.4rem 1.75rem 1.6rem;
+  box-shadow: 0 3px 14px rgba(10, 10, 10, 0.06);
+}
+
+.sci-references h2 {
+  font-size: 1.05rem;
+  color: var(--accent);
+  margin-bottom: 0.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sci-ref-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.sci-ref-list li {
+  font-size: 0.86rem;
+  color: var(--muted);
+  line-height: 1.58;
+  padding-left: 1.1rem;
+  position: relative;
+}
+
+.sci-ref-list li::before {
+  content: ' - ';
+  position: absolute;
+  left: 0;
+  color: rgba(255, 106, 0, 0.4);
+  font-style: normal;
+}
+
+.sci-ref-list em {
+  font-style: italic;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 620px) {
+  .sci-main {
+    width: calc(100% - 1rem);
+    gap: 1.25rem;
+    margin-bottom: 8rem;
+  }
+
+  .sci-card-head,
+  .sci-science {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .sci-toggle {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .sci-panel-body {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .sci-references {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sci-panel {
+    transition: none;
+  }
+
+  .sci-panel-body {
+    transition: none;
+    opacity: 1;
+  }
+
+  .sci-panel[aria-hidden="false"] .sci-panel-body {
+    transition: none;
+  }
+
+  .sci-toggle-icon,
+  .sci-toggle-icon::after {
+    transition: none;
+  }
+}
+
+/* ════════════════════════════════════════════════════════
+   Expanded content styles
+   ════════════════════════════════════════════════════════ */
+
+/* ── What are we measuring block ────────────────────────── */
+.sci-what {
+  background: #fff;
+  border: 1px solid rgba(10, 10, 10, 0.09);
+  border-radius: 22px;
+  padding: 1.6rem 1.75rem 1.8rem;
+  box-shadow: 0 3px 14px rgba(10, 10, 10, 0.06);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.sci-what-question {
+  font-size: clamp(1.2rem, 3vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0a0a0a;
+  margin: 0;
+}
+
+.sci-what-lead {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+  font-style: italic;
+}
+
+.sci-what p:last-child {
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ── Science "why" highlight inside cards ───────────────── */
+.sci-why {
+  margin-top: 0.55rem;
+  margin-bottom: 0;
+  padding: 0.6rem 0.9rem;
+  background: rgba(255, 106, 0, 0.05);
+  border-left: 3px solid rgba(255, 106, 0, 0.35);
+  border-radius: 0 8px 8px 0;
+  color: #3a2000;
+  font-size: 0.9rem;
+  line-height: 1.58;
+  font-style: italic;
+}
+
+/* ── Subject list (inside panels) ───────────────────────── */
+.sci-subjects-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(200, 212, 250, 0.55);
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.sci-subjects {
+  list-style: none;
+  margin: 0 0 0.9rem;
+  padding: 0;
+  display: grid;
+  gap: 0.28rem;
+}
+
+.sci-subjects li {
+  font-size: 0.88rem;
+  color: rgba(220, 228, 255, 0.82);
+  padding-left: 1rem;
+  position: relative;
+  line-height: 1.45;
+}
+
+.sci-subjects li::before {
+  content: '·';
+  position: absolute;
+  left: 0.25rem;
+  color: var(--accent);
+  font-weight: 900;
+}
+
+/* ── Try this tip (inside panels) ───────────────────────── */
+.sci-try {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.sci-try-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: rgba(255, 154, 60, 0.88);
+  margin: 0 0 0.3rem;
+}
+
+.sci-try p:last-child {
+  margin: 0;
+  font-size: 0.88rem;
+  color: rgba(214, 224, 252, 0.82);
+  line-height: 1.55;
+}
+
+/* ── Panel note (used in Manipulation application) ──────── */
+.sci-panel-note {
+  margin-top: 0.7rem;
+  font-size: 0.88rem;
+  color: rgba(200, 212, 250, 0.7);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ── Teacher section ─────────────────────────────────────── */
+.sci-teacher {
+  display: grid;
+  gap: 1.4rem;
+}
+
+.sci-teacher-intro-block {
+  background: #fff;
+  border: 1px solid rgba(10, 10, 10, 0.09);
+  border-radius: 22px;
+  padding: 1.6rem 1.75rem 1.8rem;
+  box-shadow: 0 3px 14px rgba(10, 10, 10, 0.06);
+  display: grid;
+  gap: 0.7rem;
+}
+
+/* Shared refresh alignment */
+.science-page {
+  background:
+    radial-gradient(circle at 14% 6%, rgba(255, 136, 46, 0.2), transparent 24%),
+    radial-gradient(circle at 84% 10%, rgba(255, 60, 112, 0.13), transparent 26%),
+    linear-gradient(180deg, #f8f1ea 0%, #eee4dc 48%, #f7f1eb 100%);
+}
+
+.science-page .page-brand {
+  color: #fff4e8;
+}
+
+.sci-main {
+  width: min(1120px, calc(100% - 2rem));
+  gap: 1.35rem;
+}
+
+.sci-header,
+.sci-what,
+.sci-card,
+.sci-teacher-intro-block,
+.sci-model,
+.sci-example,
+.sci-use-card,
+.sci-references {
+  position: relative;
+  overflow: hidden;
+}
+
+.sci-header,
+.sci-what,
+.sci-teacher-intro-block,
+.sci-model,
+.sci-example,
+.sci-use-card,
+.sci-references {
+  border: 1px solid rgba(32, 20, 12, 0.08);
+  border-radius: 30px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.58), rgba(255, 249, 243, 0.85)),
+    rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(20px) saturate(1.1);
+  box-shadow: 0 24px 60px rgba(30, 15, 8, 0.08);
+}
+
+.sci-header {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 149, 63, 0.2), transparent 28%),
+    radial-gradient(circle at 88% 24%, rgba(255, 51, 102, 0.09), transparent 32%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.68), rgba(255, 246, 238, 0.88));
+}
+
+.sci-title {
+  color: #fff4eb;
+  text-transform: uppercase;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6),
+    0 2px 0 rgba(255, 178, 120, 0.85),
+    0 4px 0 rgba(255, 120, 14, 0.78),
+    0 18px 26px rgba(255, 106, 0, 0.16);
+}
+
+.sci-intro,
+.sci-what p:last-child,
+.sci-ref-list li {
+  color: #5c524f;
+}
+
+.sci-what {
+  padding: clamp(1.4rem, 2.4vw, 2rem);
+}
+
+.sci-what-question,
+.sci-teacher-heading,
+.sci-model-title,
+.sci-examples-heading,
+.sci-references h2 {
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
+
+.sci-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.sci-card {
+  border: 1px solid rgba(27, 18, 13, 0.08);
+  border-radius: 30px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 249, 243, 0.94) 100%);
+  box-shadow: 0 24px 56px rgba(23, 14, 7, 0.08);
+  transform: translateY(22px);
+  opacity: 0;
+  filter: blur(10px);
+  transition:
+    opacity 520ms ease,
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 640ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 240ms ease,
+    border-color 240ms ease;
+  transition-delay: calc(var(--reveal-order, 0) * 70ms);
+}
+
+.sci-card.is-visible,
+.sci-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.sci-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 123, 35, 0.18);
+  box-shadow: 0 30px 68px rgba(23, 14, 7, 0.12);
+}
+
+.sci-card-head {
+  padding: 1.2rem 1.35rem 1rem;
+  background:
+    linear-gradient(120deg, rgba(255, 146, 56, 0.12), rgba(255, 255, 255, 0) 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+}
+
+.sci-badge {
+  width: 48px;
+  height: 48px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.55),
+    0 12px 24px rgba(255, 106, 0, 0.22);
+}
+
+.sci-card-name {
+  font-size: 1.18rem;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
+
+.sci-card-sub {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+.sci-science {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 250, 245, 0.82));
+}
+
+.sci-science p,
+.sci-teacher-lead,
+.sci-use-card p,
+.sci-example-item p {
+  line-height: 1.72;
+}
+
+.sci-why {
+  background:
+    linear-gradient(90deg, rgba(255, 131, 44, 0.1), rgba(255, 61, 119, 0.06));
+  border-left-color: rgba(255, 106, 0, 0.6);
+}
+
+.sci-toggle {
+  background:
+    linear-gradient(135deg, rgba(16, 18, 34, 0.96), rgba(10, 11, 22, 0.96));
+}
+
+.sci-toggle[aria-expanded='true'] {
+  background:
+    linear-gradient(135deg, rgba(18, 20, 42, 0.98), rgba(12, 13, 28, 0.98));
+}
+
+.sci-panel-body {
+  background:
+    radial-gradient(circle at top right, rgba(255, 110, 47, 0.12), transparent 34%),
+    linear-gradient(180deg, #101225 0%, #090b14 100%);
+}
+
+.sci-teacher {
+  gap: 1rem;
+}
+
+.sci-use-grid,
+.sci-model-steps,
+.sci-example-body {
+  display: grid;
+  gap: 1rem;
+}
+
+.sci-use-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sci-use-card {
+  padding: 1.3rem;
+}
+
+.sci-use-num {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 106, 0, 0.16), rgba(255, 61, 119, 0.12));
+  color: var(--accent);
+  font-weight: 800;
+  margin-bottom: 0.9rem;
+}
+
+.sci-model {
+  padding: 1.35rem;
+}
+
+.sci-model-steps {
+  grid-template-columns: repeat(5, auto);
+  align-items: stretch;
+}
+
+.sci-model-step {
+  min-height: 100%;
+  border-radius: 22px;
+  padding: 1rem 1.05rem;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(29, 20, 15, 0.08);
+}
+
+.sci-model-arrow {
+  display: grid;
+  place-items: center;
+  color: rgba(255, 106, 0, 0.68);
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.sci-examples {
+  display: grid;
+  gap: 1rem;
+}
+
+.sci-example {
+  padding: 1.3rem;
+}
+
+.sci-example-topic {
+  font-family: 'Syne', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  font-size: 1.12rem;
+  margin-bottom: 1rem;
+}
+
+.sci-example-item {
+  border-radius: 20px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.56);
+  border: 1px solid rgba(29, 20, 15, 0.07);
+}
+
+.sci-example-label {
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 800;
+  margin-bottom: 0.55rem;
+}
+
+.sci-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  filter: blur(8px);
+  transition:
+    opacity 480ms ease,
+    transform 640ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 980px) {
+  .sci-grid,
+  .sci-use-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sci-model-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .sci-model-arrow {
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 620px) {
+  .sci-main {
+    width: calc(100% - 1rem);
+  }
+
+  .sci-header,
+  .sci-what,
+  .sci-card,
+  .sci-teacher-intro-block,
+  .sci-model,
+  .sci-example,
+  .sci-use-card,
+  .sci-references {
+    border-radius: 22px;
+  }
+}
+
+.sci-teacher-intro-block .sci-eyebrow {
+  margin-bottom: 0;
+}
+
+.sci-teacher-heading {
+  font-size: clamp(1.2rem, 3vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0a0a0a;
+  margin: 0;
+}
+
+.sci-teacher-lead {
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 0.95rem;
+  margin: 0;
+  max-width: 68ch;
+}
+
+/* ── Three uses grid ─────────────────────────────────────── */
+.sci-use-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.sci-use-card {
+  background: #fff;
+  border: 1px solid rgba(10, 10, 10, 0.09);
+  border-radius: 18px;
+  padding: 1.1rem 1.25rem 1.3rem;
+  box-shadow: 0 3px 12px rgba(10, 10, 10, 0.05);
+  display: grid;
+  gap: 0.45rem;
+}
+
+.sci-use-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: rgba(255, 106, 0, 0.22);
+  line-height: 1;
+  margin: 0;
+  letter-spacing: -0.04em;
+}
+
+.sci-use-card h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin: 0;
+}
+
+.sci-use-card p:last-child {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.57;
+  margin: 0;
+}
+
+/* ── Planning model ──────────────────────────────────────── */
+.sci-model {
+  background: linear-gradient(155deg, #0f1122 0%, #090a14 100%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 22px;
+  padding: 1.5rem 1.75rem 1.75rem;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+}
+
+.sci-model-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(200, 212, 250, 0.5);
+  font-weight: 700;
+  margin: 0 0 1.1rem;
+}
+
+.sci-model-steps {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.sci-model-step {
+  flex: 1;
+  min-width: 160px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.sci-model-step p:last-child {
+  margin: 0;
+  font-size: 0.88rem;
+  color: rgba(200, 212, 250, 0.75);
+  line-height: 1.5;
+}
+
+.sci-model-step-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 800;
+  margin: 0;
+}
+
+.sci-model-step-label--science { color: rgba(255, 154, 60, 0.9); }
+.sci-model-step-label--application { color: rgba(175, 128, 255, 0.9); }
+.sci-model-step-label--classroom { color: rgba(83, 207, 224, 0.85); }
+
+.sci-model-arrow {
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* ── Examples ────────────────────────────────────────────── */
+.sci-examples {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.sci-examples-heading {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  font-weight: 700;
+  margin: 0;
+}
+
+.sci-example {
+  background: #fff;
+  border: 1px solid rgba(10, 10, 10, 0.09);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(10, 10, 10, 0.05);
+}
+
+.sci-example-topic {
+  font-weight: 800;
+  font-size: 0.92rem;
+  color: var(--accent);
+  padding: 0.8rem 1.25rem 0.75rem;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.07);
+  margin: 0;
+  background: linear-gradient(100deg, rgba(255, 106, 0, 0.05) 0%, transparent 55%);
+}
+
+/* Final refresh overrides to win against legacy science rules below */
+.science-page {
+  background:
+    radial-gradient(circle at 14% 6%, rgba(255, 136, 46, 0.2), transparent 24%),
+    radial-gradient(circle at 84% 10%, rgba(255, 60, 112, 0.13), transparent 26%),
+    linear-gradient(180deg, #f8f1ea 0%, #eee4dc 48%, #f7f1eb 100%);
+}
+
+.science-page .page-brand {
+  color: #fff4e8;
+}
+
+.sci-main {
+  width: min(1120px, calc(100% - 2rem));
+  gap: 1.35rem;
+}
+
+.sci-header,
+.sci-what,
+.sci-teacher-intro-block,
+.sci-model,
+.sci-example,
+.sci-use-card,
+.sci-references {
+  border: 1px solid rgba(32, 20, 12, 0.08);
+  border-radius: 30px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.58), rgba(255, 249, 243, 0.85)),
+    rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(20px) saturate(1.1);
+  box-shadow: 0 24px 60px rgba(30, 15, 8, 0.08);
+}
+
+.sci-header {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 149, 63, 0.2), transparent 28%),
+    radial-gradient(circle at 88% 24%, rgba(255, 51, 102, 0.09), transparent 32%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.68), rgba(255, 246, 238, 0.88));
+}
+
+.sci-title {
+  color: #fff4eb;
+  text-transform: uppercase;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6),
+    0 2px 0 rgba(255, 178, 120, 0.85),
+    0 4px 0 rgba(255, 120, 14, 0.78),
+    0 18px 26px rgba(255, 106, 0, 0.16);
+}
+
+.sci-intro,
+.sci-what p:last-child,
+.sci-ref-list li,
+.sci-teacher-lead,
+.sci-use-card p:last-child {
+  color: #5c524f;
+}
+
+.sci-what,
+.sci-teacher-intro-block,
+.sci-model,
+.sci-example,
+.sci-references {
+  padding: clamp(1.3rem, 2.4vw, 1.8rem);
+}
+
+.sci-what-question,
+.sci-teacher-heading,
+.sci-model-title,
+.sci-examples-heading,
+.sci-references h2,
+.sci-example-topic {
+  font-family: 'Syne', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
+
+.sci-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.sci-card {
+  border: 1px solid rgba(27, 18, 13, 0.08);
+  border-radius: 30px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 249, 243, 0.94) 100%);
+  box-shadow: 0 24px 56px rgba(23, 14, 7, 0.08);
+  transform: translateY(22px);
+  opacity: 0;
+  filter: blur(10px);
+  transition:
+    opacity 520ms ease,
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 640ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 240ms ease,
+    border-color 240ms ease;
+  transition-delay: calc(var(--reveal-order, 0) * 70ms);
+}
+
+.sci-card.is-visible,
+.sci-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.sci-card:hover,
+.sci-card.is-active {
+  transform: translateY(-4px);
+  border-color: rgba(255, 123, 35, 0.18);
+  box-shadow: 0 30px 68px rgba(23, 14, 7, 0.12);
+}
+
+.sci-card-head {
+  padding: 1.2rem 1.35rem 1rem;
+  background:
+    linear-gradient(120deg, rgba(255, 146, 56, 0.12), rgba(255, 255, 255, 0) 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+}
+
+.sci-badge {
+  width: 48px;
+  height: 48px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.55),
+    0 12px 24px rgba(255, 106, 0, 0.22);
+}
+
+.sci-card-name {
+  font-size: 1.18rem;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
+
+.sci-card-sub {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+.sci-science {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 250, 245, 0.82));
+}
+
+.sci-why {
+  background:
+    linear-gradient(90deg, rgba(255, 131, 44, 0.1), rgba(255, 61, 119, 0.06));
+  border-left-color: rgba(255, 106, 0, 0.6);
+}
+
+.sci-toggle {
+  background:
+    linear-gradient(135deg, rgba(16, 18, 34, 0.96), rgba(10, 11, 22, 0.96));
+}
+
+.sci-toggle[aria-expanded='true'] {
+  background:
+    linear-gradient(135deg, rgba(18, 20, 42, 0.98), rgba(12, 13, 28, 0.98));
+}
+
+.sci-panel-body {
+  background:
+    radial-gradient(circle at top right, rgba(255, 110, 47, 0.12), transparent 34%),
+    linear-gradient(180deg, #101225 0%, #090b14 100%);
+}
+
+.sci-use-grid,
+.sci-example-body {
+  gap: 1rem;
+}
+
+.sci-use-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sci-use-card {
+  padding: 1.3rem;
+}
+
+.sci-use-num {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 106, 0, 0.16), rgba(255, 61, 119, 0.12));
+  color: var(--accent);
+  font-weight: 800;
+  margin-bottom: 0.9rem;
+}
+
+.sci-use-card h3 {
+  color: #1d120d;
+  font-family: 'Syne', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  text-transform: uppercase;
+}
+
+.sci-model {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.58), rgba(255, 249, 243, 0.85)),
+    rgba(255, 255, 255, 0.74);
+  border-color: rgba(32, 20, 12, 0.08);
+}
+
+.sci-model-title {
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.sci-model-steps {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.sci-model-step {
+  min-height: 100%;
+  border-radius: 22px;
+  padding: 1rem 1.05rem;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(29, 20, 15, 0.08);
+}
+
+.sci-model-step p:last-child {
+  color: #4d4747;
+}
+
+.sci-model-arrow {
+  display: grid;
+  place-items: center;
+  color: rgba(255, 106, 0, 0.68);
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.sci-examples {
+  gap: 1rem;
+}
+
+.sci-examples-heading {
+  color: #5f544f;
+  margin: 0;
+}
+
+.sci-example {
+  overflow: visible;
+}
+
+.sci-example-topic {
+  font-size: 1.12rem;
+  padding: 0;
+  border-bottom: 0;
+  background: none;
+  margin-bottom: 1rem;
+  color: #1d120d;
+}
+
+.sci-example-item {
+  border-radius: 20px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.56);
+  border: 1px solid rgba(29, 20, 15, 0.07);
+}
+
+.sci-example-label {
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 800;
+  margin-bottom: 0.55rem;
+}
+
+.sci-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  filter: blur(8px);
+  transition:
+    opacity 480ms ease,
+    transform 640ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 980px) {
+  .sci-grid,
+  .sci-use-grid,
+  .sci-model-steps,
+  .sci-example-body {
+    grid-template-columns: 1fr;
+  }
+
+  .sci-model-arrow {
+    transform: rotate(90deg);
+  }
+}
+
+.sci-example-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.sci-example-item {
+  padding: 1rem 1.25rem 1.2rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.sci-example-item + .sci-example-item {
+  border-top: 1px solid rgba(10, 10, 10, 0.06);
+}
+
+.sci-example-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  font-weight: 700;
+  margin: 0;
+}
+
+.sci-example-item p:not(.sci-example-label) {
+  font-size: 0.9rem;
+  color: #2a2f3b;
+  line-height: 1.58;
+  margin: 0;
+}
+
+/* Classroom prompts inside example items reuse dark style inline */
+.sci-example-item .sci-prompts {
+  margin: 0;
+}
+
+.sci-example-item .sci-prompts li {
+  background: rgba(255, 106, 0, 0.06);
+  border-left-color: var(--accent);
+  color: #2a1800;
+  font-style: italic;
+}
+
+/* ── Responsive additions ────────────────────────────────── */
+@media (max-width: 620px) {
+  .sci-what,
+  .sci-teacher-intro-block,
+  .sci-model {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .sci-model-steps {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sci-model-arrow {
+    text-align: center;
+    transform: rotate(90deg);
+  }
+
+  .sci-example-body {
+    grid-template-columns: 1fr;
+  }
+
+  .sci-example-item + .sci-example-item {
+    border-top: 1px solid rgba(10, 10, 10, 0.07);
+  }
+}
+
+/* Absolute final cascade lock for refreshed science layout */
+.sci-example-body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.sci-example-item + .sci-example-item {
+  border-top: 0;
+}
+
+.sci-example-label {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.sci-example-item p:not(.sci-example-label) {
+  color: #4d4747;
+}
+
+@media (max-width: 980px) {
+  .sci-example-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Clarity pass: keep Science in the same light family as the rest of the site */
+.science-page {
+  background:
+    radial-gradient(circle at 14% 8%, rgba(255, 173, 105, 0.2), transparent 24%),
+    radial-gradient(circle at 84% 10%, rgba(255, 111, 97, 0.11), transparent 22%),
+    linear-gradient(180deg, #fffaf6 0%, #f4ebe4 48%, #fff8f2 100%);
+}
+
+.sci-title,
+.sci-what-question,
+.sci-card-name,
+.sci-teacher-heading,
+.sci-model-title,
+.sci-examples-heading,
+.sci-example-topic,
+.sci-references h2 {
+  text-transform: none;
+  text-shadow: none;
+}
+
+.sci-header,
+.sci-what,
+.sci-card,
+.sci-teacher-intro-block,
+.sci-model,
+.sci-example,
+.sci-use-card,
+.sci-references {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.74), rgba(255, 249, 243, 0.94)),
+    rgba(255, 255, 255, 0.82);
+  border-color: rgba(76, 55, 38, 0.09);
+  box-shadow: 0 22px 56px rgba(76, 48, 24, 0.09);
+}
+
+.sci-title,
+.sci-card-name,
+.sci-teacher-heading,
+.sci-example-topic,
+.sci-use-card h3 {
+  color: #221712;
+}
+
+.sci-card-sub,
+.sci-intro,
+.sci-what p:last-child,
+.sci-ref-list li,
+.sci-teacher-lead,
+.sci-use-card p:last-child,
+.sci-example-item p:not(.sci-example-label),
+.sci-model-step p:last-child {
+  color: #5c514b;
+}
+
+.sci-toggle,
+.sci-toggle[aria-expanded='true'] {
+  background:
+    linear-gradient(135deg, rgba(255, 247, 240, 0.94), rgba(255, 240, 229, 0.98));
+  border-top: 1px solid rgba(76, 55, 38, 0.06);
+}
+
+.sci-toggle[data-type='application'] .sci-toggle-label {
+  color: #d2572b;
+}
+
+.sci-toggle[data-type='classroom'] .sci-toggle-label {
+  color: #b66517;
+}
+
+.sci-toggle-icon {
+  border-color: rgba(76, 55, 38, 0.12);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.sci-toggle-icon::after {
+  border-right-color: rgba(76, 55, 38, 0.5);
+  border-bottom-color: rgba(76, 55, 38, 0.5);
+}
+
+.sci-panel-body {
+  background:
+    linear-gradient(180deg, rgba(255, 252, 249, 0.98), rgba(255, 245, 237, 1));
+  color: #4e433d;
+}
+
+.sci-subjects-label,
+.sci-panel-note {
+  color: #7b675c;
+}
+
+.sci-subjects li,
+.sci-try p:last-child,
+.sci-prompts li {
+  color: #4e433d;
+}
+
+.sci-prompts li,
+.sci-try,
+.sci-example-item {
+  background: rgba(255, 255, 255, 0.62);
+  border-color: rgba(76, 55, 38, 0.08);
+}
+
+/* Final science contrast pass */
+.sci-toggle[data-type='application'] .sci-toggle-label,
+.sci-toggle[data-type='application'][aria-expanded='true'] .sci-toggle-label {
+  color: #784a1f;
+}
+
+.sci-toggle[data-type='classroom'] .sci-toggle-label,
+.sci-toggle[data-type='classroom'][aria-expanded='true'] .sci-toggle-label {
+  color: #784a1f;
+}
+
+.sci-toggle-icon::after {
+  border-right-color: rgba(76, 55, 38, 0.78);
+  border-bottom-color: rgba(76, 55, 38, 0.78);
+}
+
+.sci-panel-body,
+.sci-subjects li,
+.sci-try p:last-child,
+.sci-prompts li,
+.sci-panel-note,
+.sci-subjects-label {
+  color: #4f433d;
+}
+
+.sci-intro,
+.sci-card-sub,
+.sci-ref-list li,
+.sci-teacher-lead,
+.sci-use-card p:last-child,
+.sci-example-item p:not(.sci-example-label),
+.sci-model-step p:last-child {
+  color: #554941;
+}

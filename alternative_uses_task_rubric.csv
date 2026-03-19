@@ -1,0 +1,21 @@
+Metric,Score Range,Rubric Description,Implementation Rule,Example Response
+Fluency,0,No valid responses,Count valid responses,User enters nothing or invalid text
+Fluency,1-5,Very low idea generation,Count responses,1–5 uses listed
+Fluency,6-10,Moderate idea generation,Count responses,6–10 uses
+Fluency,11-20,High idea generation,Count responses,11–20 uses
+Fluency,21+,Exceptional idea generation,Count responses,21+ uses
+Flexibility,1 category,Ideas fall in one domain only,NLP or keyword classification,All responses about storage
+Flexibility,2-3 categories,Limited domain variety,Count unique categories,Storage + kitchen
+Flexibility,4-6 categories,Moderate flexibility,Count unique categories,Kitchen + art + science + toys
+Flexibility,7-10 categories,High cognitive flexibility,Count unique categories,Multiple unrelated domains
+Flexibility,11+ categories,Exceptional conceptual flexibility,Count unique categories,Extremely diverse uses
+Originality,1,Very common response,High database frequency,"Drink tea, hold pens"
+Originality,2,Common response,Moderate frequency,"Plant pot, coin holder"
+Originality,3,Moderately novel,Less frequent response,"Insect trap, rainwater sampler"
+Originality,4,Unusual idea,Rare response,"Phone amplifier, terrarium"
+Originality,5,Highly unique response,Very rare response,"Mug telescope, marble maze"
+Elaboration,1,Minimal detail,Short response length,Use as a plant pot
+Elaboration,2,Some detail,Moderate word count,Use it as a small herb planter
+Elaboration,3,Moderate explanation,Sentence describing process,Plant herbs and place it on a windowsill
+Elaboration,4,Detailed explanation,Multi-step response,"Fill with soil, plant basil seeds, water regularly"
+Elaboration,5,Highly sophisticated description,Complex structured explanation,Create a self-watering herb system using a wick
