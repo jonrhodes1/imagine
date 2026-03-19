@@ -832,6 +832,10 @@
   margin-inline: auto;
 }
 
+.integration-image {
+  aspect-ratio: 2 / 3;
+}
+
 .integration-image img,
 .auditory-image-wrap .image-stage img {
   object-fit: contain;
@@ -2347,11 +2351,6 @@
 }
 
 /* ── Results / Retina ───────────────────────────────────── */
-.task-root .retina-feedback {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
 .task-root .retina-feedback h3 { color: var(--accent); }
 
 .task-root .feedback-total,
@@ -2546,13 +2545,17 @@
   color: #6a5c53;
 }
 
-.task-root .retina-feedback,
 .task-root .score-card,
 .task-root .colour-grid,
 .task-root:not(.intro-mode) .imagegen-feedback,
 .task-root:not(.intro-mode) .idea-input,
 .task-root:not(.intro-mode) .eq-col {
   background: rgba(255, 255, 255, 0.64) !important;
+  border-color: rgba(76, 55, 38, 0.08);
+}
+
+.task-root .retina-feedback {
+  background: rgba(255, 255, 255, 0.96) !important;
   border-color: rgba(76, 55, 38, 0.08);
 }
 
@@ -2916,4 +2919,19 @@
 
 .assess-page .task-root .autobio-clarity-core {
   text-shadow: none;
+}
+
+/* ── Results page: all feedback text and action buttons → black ── */
+.task-root .feedback-total,
+.task-root .feedback-band,
+.task-root .feedback-live,
+.task-root .feedback-list li,
+.task-root .feedback-list li span,
+.task-root .feedback-list strong,
+.task-root .retina-feedback h3 {
+  color: #000 !important;
+}
+
+.task-root .retina-wrap + .flow-actions .btn {
+  color: #000 !important;
 }

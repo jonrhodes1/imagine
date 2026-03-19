@@ -1987,13 +1987,6 @@ function renderTaskExploration(task, context) {
     const scoreLine = document.createElement('p');
     scoreLine.className = 'task-subtitle';
 
-    const track = document.createElement('div');
-    track.className = 'similarity-track';
-
-    const fill = document.createElement('div');
-    fill.className = 'similarity-fill';
-    track.append(fill);
-
     const labels = document.createElement('div');
     labels.className = 'scale-labels';
     labels.innerHTML = '<span>1 no image</span><span>10 very similar</span>';
@@ -2007,7 +2000,6 @@ function renderTaskExploration(task, context) {
 
     const updateVisual = () => {
       const value = Number(range.value);
-      fill.style.width = `${value * 10}%`;
       const clarity = (value - 1) / 9;
       const blur = (1 - clarity) * 14;
       const brightness = clarity <= 0.01 ? 0 : 18 + clarity * 92;
@@ -2024,7 +2016,7 @@ function renderTaskExploration(task, context) {
     updateVisual();
     range.addEventListener('input', updateVisual);
 
-    wrap.append(track, labels, range);
+    wrap.append(labels, range);
 
     const actions = document.createElement('div');
     actions.className = 'flow-actions';
@@ -2038,7 +2030,7 @@ function renderTaskExploration(task, context) {
       context.onComplete(task.key, scoreExploration(value), { similarity: value });
     });
 
-    body.append(prompt, media.stage, scoreLine, wrap, actions);
+    body.append(prompt, media.stage, wrap, actions);
   }
 
   runSequence();
