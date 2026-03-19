@@ -448,14 +448,14 @@ export function renderTaskImprovise(task, context, helpers = {}) {
     function drawGuide() {
       ctx.clearRect(0, 0, W, H);
       ctx.setLineDash([6, 5]);
-      ctx.strokeStyle = 'rgba(156, 111, 239, 0.14)';
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.22)';
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(20, H / 2);
       ctx.lineTo(W - 20, H / 2);
       ctx.stroke();
       ctx.setLineDash([]);
-      ctx.fillStyle = 'rgba(156, 111, 239, 0.22)';
+      ctx.fillStyle = '#000';
       ctx.font = '11px Inter, sans-serif';
       ctx.textAlign = 'left';
       ctx.fillText('Draw here', 22, H - 10);
@@ -501,7 +501,7 @@ export function renderTaskImprovise(task, context, helpers = {}) {
     canvas.addEventListener('pointerup', () => { drawing = false; });
 
     const resetBtn = document.createElement('button');
-    resetBtn.className = 'btn btn-secondary';
+    resetBtn.className = 'btn btn-secondary improvise-reset-btn';
     resetBtn.textContent = 'Reset';
     resetBtn.addEventListener('click', () => {
       points.length = 0;

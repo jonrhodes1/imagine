@@ -189,7 +189,9 @@ function renderShapeSVG(cells, size = 112, options = {}) {
       rect.setAttribute('width', String(cellSize - 2));
       rect.setAttribute('height', String(cellSize - 2));
       rect.setAttribute('rx', '3');
-      rect.setAttribute('fill', '#0a0a0a');
+      rect.setAttribute('fill', '#f6f6f6');
+      rect.setAttribute('stroke', '#000');
+      rect.setAttribute('stroke-width', '1.8');
       svg.append(rect);
       return;
     }
@@ -203,6 +205,8 @@ function renderShapeSVG(cells, size = 112, options = {}) {
       `${px},${py} ${px + depth},${py - depth} ${px + frontSize + depth},${py - depth} ${px + frontSize},${py}`,
     );
     topFace.setAttribute('fill', '#2b2b2b');
+    topFace.setAttribute('stroke', '#000');
+    topFace.setAttribute('stroke-width', '0.9');
 
     const rightFace = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
     rightFace.setAttribute(
@@ -210,6 +214,8 @@ function renderShapeSVG(cells, size = 112, options = {}) {
       `${px + frontSize},${py} ${px + frontSize + depth},${py - depth} ${px + frontSize + depth},${py + frontSize - depth} ${px + frontSize},${py + frontSize}`,
     );
     rightFace.setAttribute('fill', '#1b1b1b');
+    rightFace.setAttribute('stroke', '#000');
+    rightFace.setAttribute('stroke-width', '0.9');
 
     const frontFace = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     frontFace.setAttribute('x', String(px));
@@ -217,7 +223,9 @@ function renderShapeSVG(cells, size = 112, options = {}) {
     frontFace.setAttribute('width', String(frontSize));
     frontFace.setAttribute('height', String(frontSize));
     frontFace.setAttribute('rx', '1.8');
-    frontFace.setAttribute('fill', '#050505');
+    frontFace.setAttribute('fill', '#efefef');
+    frontFace.setAttribute('stroke', '#000');
+    frontFace.setAttribute('stroke-width', '1.4');
 
     svg.append(topFace, rightFace, frontFace);
   });
@@ -427,22 +435,32 @@ function renderFoldTargetSVG() {
   const orange = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
   orange.setAttribute('points', '120,64 180,80 158,134 98,118');
   orange.setAttribute('fill', foldPalette.orange);
+  orange.setAttribute('stroke', '#000');
+  orange.setAttribute('stroke-width', '2.2');
 
   const green = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
   green.setAttribute('points', '180,80 240,96 218,150 158,134');
   green.setAttribute('fill', foldPalette.green);
+  green.setAttribute('stroke', '#000');
+  green.setAttribute('stroke-width', '2.2');
 
   const cyan = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
   cyan.setAttribute('points', '240,96 300,112 278,166 218,150');
   cyan.setAttribute('fill', foldPalette.cyan);
+  cyan.setAttribute('stroke', '#000');
+  cyan.setAttribute('stroke-width', '2.2');
 
   const red = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
   red.setAttribute('points', '98,118 158,134 112,186');
   red.setAttribute('fill', foldPalette.red);
+  red.setAttribute('stroke', '#000');
+  red.setAttribute('stroke-width', '2.2');
 
   const navy = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
   navy.setAttribute('points', '240,96 300,112 286,44');
   navy.setAttribute('fill', foldPalette.navy);
+  navy.setAttribute('stroke', '#000');
+  navy.setAttribute('stroke-width', '2.2');
 
   svg.append(orange, green, cyan, red, navy);
   return svg;
@@ -456,14 +474,20 @@ function renderFoldOptionSVG(option) {
   const top = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
   top.setAttribute('points', '34,28 114,44 58,60');
   top.setAttribute('fill', foldPalette[option.top]);
+  top.setAttribute('stroke', '#000');
+  top.setAttribute('stroke-width', '2');
 
   const left = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
   left.setAttribute('points', '34,28 58,60 58,126 34,94');
   left.setAttribute('fill', foldPalette[option.left]);
+  left.setAttribute('stroke', '#000');
+  left.setAttribute('stroke-width', '2');
 
   const right = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
   right.setAttribute('points', '58,60 114,44 114,110 58,126');
   right.setAttribute('fill', foldPalette[option.right]);
+  right.setAttribute('stroke', '#000');
+  right.setAttribute('stroke-width', '2');
 
   svg.append(top, left, right);
   return svg;
@@ -998,7 +1022,6 @@ function renderTaskImageGeneration(task, context) {
     const wrap = document.createElement('section');
     wrap.className = 'card emotion-wrap';
     wrap.innerHTML = `
-      <div class="emotion-wave" aria-hidden="true"></div>
       <input class="range emotion-range" type="range" min="-10" max="10" value="${initialSigned}" />
       <div class="emotion-labels">
         <span>I’m relaxed and am going to leave slowly</span>
@@ -1613,15 +1636,15 @@ function renderTaskAutobiographical(task, context) {
 
     stageWrap.classList.add('autobio-clarity-stage');
     stageWrap.innerHTML = `
-      <div class="autobio-clarity-figure" id="autobioClarityFigure" style="--clarity:${clarityScores[currentRatingIndex]}; --clarity-blur:${Math.max(0, 14 - clarityScores[currentRatingIndex] * 1.1)}px;">
+      <div class="autobio-clarity-figure" id="autobioClarityFigure" style="--clarity:${clarityScores[currentRatingIndex]}; --clarity-blur:${Math.max(0, 12 - clarityScores[currentRatingIndex] * 1.2)}px;">
         <div class="autobio-clarity-halo"></div>
         <div class="autobio-clarity-core">${currentAnimal}</div>
       </div>
       <div class="autobio-clarity-scale card">
         <label class="autobio-clarity-label" for="autobioClarityRange">
-          <span>1 = no image</span>
+          <span>1/10 unclear</span>
           <strong id="autobioClarityValue">${clarityScores[currentRatingIndex]}/10</strong>
-          <span>10 = extremely clear</span>
+          <span>10/10 clear</span>
         </label>
         <input class="range" id="autobioClarityRange" type="range" min="1" max="10" value="${clarityScores[currentRatingIndex]}" />
       </div>
@@ -1642,7 +1665,7 @@ function renderTaskAutobiographical(task, context) {
       if (valueEl) valueEl.textContent = `${numeric}/10`;
       if (figure) {
         figure.style.setProperty('--clarity', String(numeric));
-        figure.style.setProperty('--clarity-blur', `${Math.max(0, 14 - numeric * 1.1)}px`);
+        figure.style.setProperty('--clarity-blur', `${Math.max(0, 12 - numeric * 1.2)}px`);
       }
       persistInterim();
     };

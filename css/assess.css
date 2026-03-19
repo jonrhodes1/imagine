@@ -712,7 +712,7 @@
 .improvise-measure-title {
   font-size: 1.02rem;
   font-weight: 600;
-  color: #1a1d24;
+  color: #000;
   margin: 0;
   line-height: 1.4;
   text-align: center;
@@ -720,7 +720,7 @@
 
 .improvise-measure-hint {
   font-size: 0.82rem;
-  color: #5c6070;
+  color: #000;
   margin: 0;
   text-align: center;
 }
@@ -820,6 +820,10 @@
 
 .improvise-continuity-actions {
   justify-content: center;
+}
+
+.improvise-continuity-actions .btn-secondary {
+  color: #000 !important;
 }
 
 .integration-image,
@@ -2327,11 +2331,15 @@
 
 /* ── Improvise dark ─────────────────────────────────────── */
 .task-root:not(.intro-mode) .improvise-anchor-btn {
-  color: rgba(210, 218, 255, 0.88);
+  color: #000;
+}
+
+.task-root:not(.intro-mode) .improvise-anchor-btn:hover {
+  color: #000;
 }
 
 .task-root:not(.intro-mode) .improvise-anchor-btn.selected {
-  color: rgba(220, 195, 255, 0.95);
+  color: #000;
 }
 
 .task-root:not(.intro-mode) .improvise-control-label {
@@ -2829,4 +2837,83 @@
 .task-root .imagegen-overlay p,
 .task-root .autobio-overlay p {
   color: #fff;
+}
+
+/* Assessment readability and controls lock */
+.assess-page .task-root,
+.assess-page .task-root * {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.assess-page .task-root .task-subtitle,
+.assess-page .task-root .task-instruction,
+.assess-page .task-root .task-helper,
+.assess-page .task-root .imagegen-subprogress,
+.assess-page .task-root .autobio-progress,
+.assess-page .task-root .smell-label,
+.assess-page .task-root .tactile-labels,
+.assess-page .task-root .emotion-labels,
+.assess-page .task-root .scale-labels,
+.assess-page .task-root .audio-label,
+.assess-page .task-root .audio-value {
+  color: #2d221c !important;
+  opacity: 1 !important;
+}
+
+.assess-page .task-root .imagegen-overlay p {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.48);
+  font-weight: 600;
+}
+
+.assess-page .task-root .imagegen-overlay.is-fading {
+  filter: none;
+  opacity: 1;
+}
+
+/* Image Generation auditory +/- buttons */
+.assess-page .task-root .audio-step {
+  color: #000 !important;
+  font-weight: 800;
+}
+
+/* Back buttons across assessment flows */
+.assess-page .task-root .btn-secondary[id*='Back'],
+.assess-page .task-root .btn-secondary[id^='back'],
+.assess-page .task-root .improvise-back-btn,
+.assess-page #backNavigation,
+.assess-page #backIntention,
+.assess-page #colourBackBtn,
+.assess-page #rebuildBack,
+.assess-page #backToRebuild {
+  background: #7dff45 !important;
+  color: #000 !important;
+  border-color: #000 !important;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.14), 0 10px 22px rgba(125, 255, 69, 0.32);
+  opacity: 1 !important;
+}
+
+.assess-page .task-root .btn-secondary[id*='Back']:hover,
+.assess-page .task-root .btn-secondary[id^='back']:hover,
+.assess-page #backNavigation:hover,
+.assess-page #backIntention:hover,
+.assess-page #colourBackBtn:hover,
+.assess-page #rebuildBack:hover,
+.assess-page #backToRebuild:hover {
+  background: #95ff63 !important;
+  color: #000 !important;
+  border-color: #000 !important;
+}
+
+/* Autobiographical clarity labels remain sharp at max score */
+.assess-page .task-root .autobio-clarity-label,
+.assess-page .task-root .autobio-clarity-label strong {
+  color: #19120e !important;
+  opacity: 1 !important;
+}
+
+.assess-page .task-root .autobio-clarity-core {
+  text-shadow: none;
 }
