@@ -6,7 +6,7 @@ const LAYOUT = {
   height: 420,
   points: {
     'Home': { x: 360, y: 210, icon: '🏠' },
-    'Bus Station': { x: 392, y: 96, icon: '🚌' },
+    'Bus Station': { x: 425, y: 94, icon: '🚌' },
     'Airport': { x: 570, y: 166, icon: '✈️' },
     'Park': { x: 168, y: 146, icon: '🌳' },
     'Mountains': { x: 282, y: 286, icon: '⛰️' },
@@ -62,10 +62,8 @@ function averageError(trials) {
 
 function buildMapMarkup() {
   const home = LAYOUT.points.Home;
-  const homeLeft = (home.x / LAYOUT.width) * 100;
-  const homeTop = (home.y / LAYOUT.height) * 100;
-  const northLeft = (NORTH_REFERENCE.x / LAYOUT.width) * 100;
-  const northTop = (NORTH_REFERENCE.y / LAYOUT.height) * 100;
+  const homeXPct = (home.x / LAYOUT.width) * 100;
+  const homeYPct = (home.y / LAYOUT.height) * 100;
 
   const locations = Object.entries(LAYOUT.points)
     .map(([name, point]) => {
@@ -83,13 +81,14 @@ function buildMapMarkup() {
   return `
     <div class="navx-map" id="navxMap">
       <div class="navx-map-haze" aria-hidden="true"></div>
-      <div class="navx-home-north-line" aria-hidden="true" style="left:${homeLeft}%;top:${homeTop}%;--navx-line-length:${Math.hypot(NORTH_REFERENCE.x - home.x, NORTH_REFERENCE.y - home.y)}px;--navx-line-angle:${bearingFromTo(home, NORTH_REFERENCE)}deg;"></div>
-      <div class="navx-map-north" aria-label="Cardinal direction north" style="left:${northLeft}%;top:${northTop}%">
-        <svg class="navx-compass-rose" viewBox="0 0 60 60" aria-hidden="true">
-          <g>
-            <path d="M 30 2 L 41 24 L 30 18 L 19 24 Z" fill="currentColor"/>
-            <text x="30" y="48" text-anchor="middle" class="navx-compass-text">N</text>
-          </g>
+      <svg class="navx-north-line" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <line x1="50" y1="0" x2="${homeXPct.toFixed(2)}" y2="${homeYPct.toFixed(2)}"
+          stroke="rgba(178,223,232,0.22)" stroke-width="0.55" stroke-linecap="round"/>
+      </svg>
+      <div class="navx-map-north" aria-label="Cardinal direction north">
+        <svg class="navx-compass-rose" viewBox="0 0 60 72" aria-hidden="true">
+          <path d="M 30 3 L 43 32 L 30 24 L 17 32 Z" fill="currentColor"/>
+          <text x="30" y="66" text-anchor="middle" class="navx-compass-text">N</text>
         </svg>
       </div>
       ${locations}
@@ -291,7 +290,7 @@ export function renderTaskNavigation(task, context) {
   const renderEncoding = () => {
     body.innerHTML = `
       <div class="navx-start-prompt" id="navxStartPrompt" aria-live="polite">
-        <p>Imagine you are standing at Home facing North. North if your reference point.</p>
+        <p>Imagine you are standing at Home facing North. North is the direction you are facing and your reference point.</p>
         <p>Also, remember where each location is and when you're ready, let's begin.</p>
       </div>
       <section class="navx-encoding-stage">
