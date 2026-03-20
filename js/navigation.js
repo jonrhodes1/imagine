@@ -56,6 +56,20 @@ function averageError(trials) {
 }
 
 function buildMapMarkup() {
+  const home = LAYOUT.points.Home;
+  const mountains = LAYOUT.points.Mountains;
+  const dx = mountains.x - home.x;
+  const dy = mountains.y - home.y;
+  const northPoint = {
+    x: home.x + dx * 1.35,
+    y: home.y + dy * 1.35,
+  };
+
+  const homeLeft = (home.x / LAYOUT.width) * 100;
+  const homeTop = (home.y / LAYOUT.height) * 100;
+  const northLeft = (northPoint.x / LAYOUT.width) * 100;
+  const northTop = (northPoint.y / LAYOUT.height) * 100;
+
   const locations = Object.entries(LAYOUT.points)
     .map(([name, point]) => {
       const left = (point.x / LAYOUT.width) * 100;
@@ -72,11 +86,12 @@ function buildMapMarkup() {
   return `
     <div class="navx-map" id="navxMap">
       <div class="navx-map-haze" aria-hidden="true"></div>
-      <div class="navx-map-north" aria-label="Cardinal direction north">
+      <div class="navx-home-north-line" aria-hidden="true" style="left:${homeLeft}%;top:${homeTop}%;--navx-line-length:${Math.hypot(northPoint.x - home.x, northPoint.y - home.y)}px;--navx-line-angle:${bearingFromTo(home, northPoint)}deg;"></div>
+      <div class="navx-map-north" aria-label="Cardinal direction north" style="left:${northLeft}%;top:${northTop}%">
         <svg class="navx-compass-rose" viewBox="0 0 60 60" aria-hidden="true">
           <g>
-            <path d="M 30 2 L 35 15 L 30 12 L 25 15 Z" fill="currentColor"/>
-            <text x="30" y="32" text-anchor="middle" class="navx-compass-text">N</text>
+            <path d="M 30 2 L 41 24 L 30 18 L 19 24 Z" fill="currentColor"/>
+            <text x="30" y="48" text-anchor="middle" class="navx-compass-text">N</text>
           </g>
         </svg>
       </div>
@@ -161,7 +176,6 @@ export function renderTaskNavigation(task, context) {
     const score = scoreNavigate({ meanError });
 
     body.innerHTML = `
-      <p class="autobio-progress">Part 6: Navigation</p>
       <section class="navx-summary">
         <p class="task-instruction">Your spatial orientation trials are complete.</p>
         <p class="task-helper">Mean angular error: <strong>${meanError.toFixed(1)}°</strong> · Spatial accuracy score: <strong>${score}/10</strong></p>
@@ -197,7 +211,7 @@ export function renderTaskNavigation(task, context) {
     trialStartedAt = performance.now();
 
     body.innerHTML = `
-      <p class="autobio-progress">Part 6: Navigation · Trial ${trialIndex + 1}/${TRIALS.length}</p>
+      <p class="autobio-progress">Trial ${trialIndex + 1}/${TRIALS.length}</p>
       <div class="autobio-copy navx-copy">
         <p class="task-instruction">${mapInstruction(trial)}</p>
       </div>
@@ -290,9 +304,8 @@ export function renderTaskNavigation(task, context) {
 
   const renderEncoding = () => {
     body.innerHTML = `
-      <p class="autobio-progress">Part 6: Navigation</p>
       <div class="navx-start-prompt" id="navxStartPrompt" aria-live="polite">
-        <p>Imagine you are standing at Home and facing the Mountains.</p>
+        <p>Imagine you are standing at Home and facing the Mountains. You are currently facing North.</p>
         <p>Remember where each location is and when you're ready, let's begin.</p>
       </div>
       <section class="navx-encoding-stage">

@@ -1567,43 +1567,38 @@
 
 .navx-map-north {
   position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -78%);
   z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 0;
+}
+
+.navx-home-north-line {
+  position: absolute;
+  width: var(--navx-line-length);
+  height: 2px;
+  transform-origin: left center;
+  transform: rotate(var(--navx-line-angle));
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(178, 223, 232, 0.2), rgba(178, 223, 232, 0.35), rgba(178, 223, 232, 0.16));
+  filter: blur(0.2px);
 }
 
 .navx-compass-rose {
-  width: 36px;
-  height: 36px;
+  width: 66px;
+  height: 66px;
   color: rgba(200, 243, 255, 0.82);
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.32));
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.34));
 }
 
 .navx-compass-text {
-  font-size: 18px;
+  font-size: 28px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   fill: rgba(200, 243, 255, 0.92);
   font-family: 'Georgia', 'Garamond', serif;
-}
-
-.navx-dial-north {
-  position: absolute;
-  top: -28px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: rgba(83, 207, 224, 0.7);
-  font-family: 'Georgia', 'Garamond', serif;
-  pointer-events: none;
 }
 
 .navx-dial-stage {
