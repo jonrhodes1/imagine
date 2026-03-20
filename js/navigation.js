@@ -6,7 +6,7 @@ const LAYOUT = {
   height: 420,
   points: {
     'Home': { x: 360, y: 210, icon: '🏠' },
-    'Bus Station': { x: 360, y: 92, icon: '🚌' },
+    'Bus Station': { x: 392, y: 96, icon: '🚌' },
     'Airport': { x: 570, y: 166, icon: '✈️' },
     'Park': { x: 168, y: 146, icon: '🌳' },
     'Mountains': { x: 282, y: 286, icon: '⛰️' },
@@ -15,8 +15,8 @@ const LAYOUT = {
 };
 
 const NORTH_REFERENCE = {
-  x: 312,
-  y: 86,
+  x: 360,
+  y: 72,
 };
 
 const TRIALS = [
@@ -291,8 +291,8 @@ export function renderTaskNavigation(task, context) {
   const renderEncoding = () => {
     body.innerHTML = `
       <div class="navx-start-prompt" id="navxStartPrompt" aria-live="polite">
-        <p>Imagine you are standing at Home. Use the line to the north marker as your North reference.</p>
-        <p>Remember where each location is and when you're ready, let's begin.</p>
+        <p>Imagine you are standing at Home facing North. North if your reference point.</p>
+        <p>Also, remember where each location is and when you're ready, let's begin.</p>
       </div>
       <section class="navx-encoding-stage">
         ${buildMapMarkup()}
