@@ -14,6 +14,11 @@ const LAYOUT = {
   },
 };
 
+const NORTH_REFERENCE = {
+  x: 312,
+  y: 86,
+};
+
 const TRIALS = [
   { target: 'Park', facing: 'Mountains' },
   { target: 'Airport', facing: 'Mountains' },
@@ -57,18 +62,10 @@ function averageError(trials) {
 
 function buildMapMarkup() {
   const home = LAYOUT.points.Home;
-  const mountains = LAYOUT.points.Mountains;
-  const dx = mountains.x - home.x;
-  const dy = mountains.y - home.y;
-  const northPoint = {
-    x: home.x + dx * 1.35,
-    y: home.y + dy * 1.35,
-  };
-
   const homeLeft = (home.x / LAYOUT.width) * 100;
   const homeTop = (home.y / LAYOUT.height) * 100;
-  const northLeft = (northPoint.x / LAYOUT.width) * 100;
-  const northTop = (northPoint.y / LAYOUT.height) * 100;
+  const northLeft = (NORTH_REFERENCE.x / LAYOUT.width) * 100;
+  const northTop = (NORTH_REFERENCE.y / LAYOUT.height) * 100;
 
   const locations = Object.entries(LAYOUT.points)
     .map(([name, point]) => {
@@ -86,7 +83,7 @@ function buildMapMarkup() {
   return `
     <div class="navx-map" id="navxMap">
       <div class="navx-map-haze" aria-hidden="true"></div>
-      <div class="navx-home-north-line" aria-hidden="true" style="left:${homeLeft}%;top:${homeTop}%;--navx-line-length:${Math.hypot(northPoint.x - home.x, northPoint.y - home.y)}px;--navx-line-angle:${bearingFromTo(home, northPoint)}deg;"></div>
+      <div class="navx-home-north-line" aria-hidden="true" style="left:${homeLeft}%;top:${homeTop}%;--navx-line-length:${Math.hypot(NORTH_REFERENCE.x - home.x, NORTH_REFERENCE.y - home.y)}px;--navx-line-angle:${bearingFromTo(home, NORTH_REFERENCE)}deg;"></div>
       <div class="navx-map-north" aria-label="Cardinal direction north" style="left:${northLeft}%;top:${northTop}%">
         <svg class="navx-compass-rose" viewBox="0 0 60 60" aria-hidden="true">
           <g>
@@ -103,10 +100,7 @@ function buildMapMarkup() {
 }
 
 function mapInstruction(trial) {
-  if (trial.facing === 'Mountains') {
-    return `Now point to the ${trial.target}.`;
-  }
-  return `Now imagine you are facing the ${trial.facing}. Point to the ${trial.target}.`;
+  return `Start at North, then move the hand to point to the ${trial.target}.`;
 }
 
 export function renderTaskNavigation(task, context) {
@@ -127,8 +121,9 @@ export function renderTaskNavigation(task, context) {
   let trialIndex = Math.max(0, Math.min(TRIALS.length, Number(previous.trialIndex || 0)));
   let cancelled = false;
   let dragging = false;
-  let activeAngle = 200;
+  let activeAngle = 0;
   let trialStartedAt = 0;
+  const northBearing = bearingFromTo(LAYOUT.points.Home, NORTH_REFERENCE);
 
   const persistInterim = () => {
     const meanError = Number(averageError(trialResults).toFixed(1));
@@ -153,10 +148,8 @@ export function renderTaskNavigation(task, context) {
     const home = LAYOUT.points.Home;
     const targetPoint = LAYOUT.points[trial.target];
     const targetBearing = bearingFromTo(home, targetPoint);
-    
-    // Return absolute bearing (North = 0°) instead of relative to facing direction
-    // The dial now shows absolute bearings with North always at the top
-    return targetBearing;
+
+    return normalizeAngle(targetBearing - northBearing);
   };
 
   const finishTask = () => {
@@ -200,14 +193,8 @@ export function renderTaskNavigation(task, context) {
       return;
     }
 
-    const home = LAYOUT.points.Home;
-    const facingPoint = LAYOUT.points[trial.facing] || LAYOUT.points['Bus Station'];
-    const facingBearing = bearingFromTo(home, facingPoint);
-    
     const targetAngle = targetAngleForTrial(trial);
-    // Adjust for facing direction: dial rotates with user's orientation
-    // User points in absolute directions, but dial UI rotates to match their facing
-    activeAngle = normalizeAngle(targetAngle - facingBearing);
+    activeAngle = 0;
     trialStartedAt = performance.now();
 
     body.innerHTML = `
@@ -216,15 +203,16 @@ export function renderTaskNavigation(task, context) {
         <p class="task-instruction">${mapInstruction(trial)}</p>
       </div>
       <section class="navx-dial-stage">
-        <div class="navx-dial" id="navxDial" role="application" aria-label="Navigation direction dial" style="transform: rotate(${facingBearing}deg)">
+        <div class="navx-dial" id="navxDial" role="application" aria-label="Navigation direction dial">
           <div class="navx-dial-ring" aria-hidden="true"></div>
           <div class="navx-dial-ticks" aria-hidden="true"></div>
+          <div class="navx-dial-north" aria-hidden="true">N</div>
           <div class="navx-hand" id="navxHand" style="transform: rotate(${activeAngle}deg)">
             <span class="navx-hand-tip"></span>
           </div>
           <span class="navx-center-dot" aria-hidden="true"></span>
         </div>
-        <p class="task-helper" id="navxDirectionReadout">Bearing: ${Math.round(normalizeAngle(activeAngle + facingBearing))}°</p>
+        <p class="task-helper" id="navxDirectionReadout">Bearing from North: ${Math.round(activeAngle)}°</p>
       </section>
       <div class="flow-actions">
         <button class="btn btn-secondary" type="button" id="backNavigation">Back</button>
@@ -239,8 +227,7 @@ export function renderTaskNavigation(task, context) {
     const paintAngle = (angle) => {
       activeAngle = normalizeAngle(angle);
       hand.style.transform = `rotate(${activeAngle}deg)`;
-      const absoluteBearing = normalizeAngle(activeAngle + facingBearing);
-      readout.textContent = `Bearing: ${Math.round(absoluteBearing)}°`;
+      readout.textContent = `Bearing from North: ${Math.round(activeAngle)}°`;
     };
 
     const onPointerDown = (event) => {
@@ -279,13 +266,12 @@ export function renderTaskNavigation(task, context) {
 
     body.querySelector('#confirmNavigation')?.addEventListener('click', () => {
       const elapsedMs = Math.max(1, Math.round(performance.now() - trialStartedAt));
-      // Convert user's dial angle back to absolute bearing for error calculation
-      const userAbsoluteBearing = normalizeAngle(activeAngle + facingBearing);
-      const error = Number(angularError(userAbsoluteBearing, targetAngle).toFixed(1));
+      const userAbsoluteBearing = normalizeAngle(activeAngle + northBearing);
+      const error = Number(angularError(activeAngle, targetAngle).toFixed(1));
 
       const trialResult = {
         facing: trial.facing,
-        facingBearing: Number(facingBearing.toFixed(1)),
+        northBearing: Number(northBearing.toFixed(1)),
         target: trial.target,
         userAngle: Number(activeAngle.toFixed(1)),
         userAbsoluteBearing: Number(userAbsoluteBearing.toFixed(1)),
@@ -305,7 +291,7 @@ export function renderTaskNavigation(task, context) {
   const renderEncoding = () => {
     body.innerHTML = `
       <div class="navx-start-prompt" id="navxStartPrompt" aria-live="polite">
-        <p>Imagine you are standing at Home and facing the Mountains. You are currently facing North.</p>
+        <p>Imagine you are standing at Home. Use the line to the north marker as your North reference.</p>
         <p>Remember where each location is and when you're ready, let's begin.</p>
       </div>
       <section class="navx-encoding-stage">
