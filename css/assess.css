@@ -1565,10 +1565,52 @@
   box-shadow: 0 0 0 6px rgba(156, 227, 245, 0.12);
 }
 
+.navx-map-north {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.navx-compass-rose {
+  width: 36px;
+  height: 36px;
+  color: rgba(200, 243, 255, 0.82);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.32));
+}
+
+.navx-compass-text {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  fill: rgba(200, 243, 255, 0.92);
+  font-family: 'Georgia', 'Garamond', serif;
+}
+
+.navx-dial-north {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(83, 207, 224, 0.7);
+  font-family: 'Georgia', 'Garamond', serif;
+  pointer-events: none;
+}
+
 .navx-dial-stage {
   display: grid;
   justify-items: center;
   gap: 0.85rem;
+  position: relative;
 }
 
 .navx-dial {

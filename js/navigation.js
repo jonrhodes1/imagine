@@ -72,6 +72,14 @@ function buildMapMarkup() {
   return `
     <div class="navx-map" id="navxMap">
       <div class="navx-map-haze" aria-hidden="true"></div>
+      <div class="navx-map-north" aria-label="Cardinal direction north">
+        <svg class="navx-compass-rose" viewBox="0 0 60 60" aria-hidden="true">
+          <g>
+            <path d="M 30 2 L 35 15 L 30 12 L 25 15 Z" fill="currentColor"/>
+            <text x="30" y="32" text-anchor="middle" class="navx-compass-text">N</text>
+          </g>
+        </svg>
+      </div>
       ${locations}
       <div class="navx-home-ring" aria-hidden="true"></div>
       <button class="btn btn-primary navx-ready-btn" type="button" id="startNavigationTrials">Continue When Ready</button>
@@ -128,13 +136,12 @@ export function renderTaskNavigation(task, context) {
 
   const targetAngleForTrial = (trial) => {
     const home = LAYOUT.points.Home;
-    const facingPoint = LAYOUT.points[trial.facing] || LAYOUT.points['Bus Station'];
     const targetPoint = LAYOUT.points[trial.target];
-
-    const facingBearing = bearingFromTo(home, facingPoint);
     const targetBearing = bearingFromTo(home, targetPoint);
-
-    return normalizeAngle(targetBearing - facingBearing);
+    
+    // Return absolute bearing (North = 0°) instead of relative to facing direction
+    // The dial now shows absolute bearings with North always at the top
+    return targetBearing;
   };
 
   const finishTask = () => {
@@ -179,8 +186,14 @@ export function renderTaskNavigation(task, context) {
       return;
     }
 
+    const home = LAYOUT.points.Home;
+    const facingPoint = LAYOUT.points[trial.facing] || LAYOUT.points['Bus Station'];
+    const facingBearing = bearingFromTo(home, facingPoint);
+    
     const targetAngle = targetAngleForTrial(trial);
-    activeAngle = normalizeAngle(targetAngle + 138);
+    // Adjust for facing direction: dial rotates with user's orientation
+    // User points in absolute directions, but dial UI rotates to match their facing
+    activeAngle = normalizeAngle(targetAngle - facingBearing);
     trialStartedAt = performance.now();
 
     body.innerHTML = `
@@ -189,7 +202,7 @@ export function renderTaskNavigation(task, context) {
         <p class="task-instruction">${mapInstruction(trial)}</p>
       </div>
       <section class="navx-dial-stage">
-        <div class="navx-dial" id="navxDial" role="application" aria-label="Navigation direction dial">
+        <div class="navx-dial" id="navxDial" role="application" aria-label="Navigation direction dial" style="transform: rotate(${facingBearing}deg)">
           <div class="navx-dial-ring" aria-hidden="true"></div>
           <div class="navx-dial-ticks" aria-hidden="true"></div>
           <div class="navx-hand" id="navxHand" style="transform: rotate(${activeAngle}deg)">
@@ -197,7 +210,7 @@ export function renderTaskNavigation(task, context) {
           </div>
           <span class="navx-center-dot" aria-hidden="true"></span>
         </div>
-        <p class="task-helper" id="navxDirectionReadout">Direction: ${Math.round(activeAngle)}°</p>
+        <p class="task-helper" id="navxDirectionReadout">Bearing: ${Math.round(normalizeAngle(activeAngle + facingBearing))}°</p>
       </section>
       <div class="flow-actions">
         <button class="btn btn-secondary" type="button" id="backNavigation">Back</button>
@@ -212,7 +225,8 @@ export function renderTaskNavigation(task, context) {
     const paintAngle = (angle) => {
       activeAngle = normalizeAngle(angle);
       hand.style.transform = `rotate(${activeAngle}deg)`;
-      readout.textContent = `Direction: ${Math.round(activeAngle)}°`;
+      const absoluteBearing = normalizeAngle(activeAngle + facingBearing);
+      readout.textContent = `Bearing: ${Math.round(absoluteBearing)}°`;
     };
 
     const onPointerDown = (event) => {
@@ -251,12 +265,16 @@ export function renderTaskNavigation(task, context) {
 
     body.querySelector('#confirmNavigation')?.addEventListener('click', () => {
       const elapsedMs = Math.max(1, Math.round(performance.now() - trialStartedAt));
-      const error = Number(angularError(activeAngle, targetAngle).toFixed(1));
+      // Convert user's dial angle back to absolute bearing for error calculation
+      const userAbsoluteBearing = normalizeAngle(activeAngle + facingBearing);
+      const error = Number(angularError(userAbsoluteBearing, targetAngle).toFixed(1));
 
       const trialResult = {
         facing: trial.facing,
+        facingBearing: Number(facingBearing.toFixed(1)),
         target: trial.target,
         userAngle: Number(activeAngle.toFixed(1)),
+        userAbsoluteBearing: Number(userAbsoluteBearing.toFixed(1)),
         targetAngle: Number(targetAngle.toFixed(1)),
         error,
         angularError: error,
